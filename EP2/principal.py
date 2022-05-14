@@ -23,3 +23,128 @@ while not parar_tudo:
     print('|  Seu objetivo vai ser acertar   |')
     print('| um país sortesado pelo sistema  |')
     print('|=================================|')
+
+    Pais_escolhido= sorteia_pais(Dados_normalizados)
+    lista=[]
+    lista_de_tentativas=[]
+    Tentativas=20
+    parar=False
+
+    for i in Dados_normalizados:
+        pais= i
+        lat1=Dados_normalizados[i]["geo"]["latitude"]
+        lat2=Dados_normalizados[Pais_escolhido]["geo"]["latitude"]
+        long1=Dados_normalizados[i]["geo"]["longitude"]
+        long2=Dados_normalizados[Pais_escolhido]["geo"]["longitude"]
+        distancia=haversine(EARTH_RADIUS, lat1, long1, lat2, long2)
+        adiciona_em_ordem(pais, distancia, lista)
+
+    while not parar:
+
+        print()
+        print()
+        print()
+        print()
+        print('|=================================|')
+        print('|                                 |')
+        print('|    1  ->  Fazer um chute        |')
+        print('|    2  ->  Obter uma dica        |')
+        print('|    3  ->  Desistir              |')
+        print('|                                 |')
+        print('|=================================|')
+        print()
+        print()
+        print()
+        Tenta_ou_Compra=input("  Pressione 1 para fazer um chute, 2 para obter uma dica e 3 para desistir  ")
+        print()
+
+        if Tenta_ou_Compra == '1':
+            parar2=False
+
+
+            while not parar2:
+                print()
+                pais2=input("   Digite um país:   ")
+                print()
+                pais2=pais2.lower()
+                if esta_na_lista(pais2, lista)==True:
+                    parar2=True
+                else:
+                    print()
+                    print("   O país citado infelizmente não se encontra em nosso banco de dados   ")
+                    print()
+
+
+            for i in lista:
+                if pais2==i[0]:
+                    distancia2=i[1]
+            if len(str(distancia2))>3:
+                x=str(distancia2)[:-3]+'.'+str(distancia2)[-3:]
+            if len(str(distancia2))<=3:
+                x=distancia2
+
+
+            if distancia2==0:
+                print()
+                print(colored("   Parabéns, você acertou!!!   ", 'magenta'))
+                print()
+                quer_parar=input('     Deseja jogar novamente?   (s/n)  ')
+                if quer_parar=='n':
+                    parar_tudo=True
+                parar=True   
+
+            if distancia2!=0:
+                print()
+                print(x)
+                print()
+
+
+            if pais not in lista_de_tentativas:
+                Tentativas-=1
+                lista_de_tentativas.append(pais2)
+
+
+            if distancia!=0:
+
+                if 15<=Tentativas<=20:
+                    print()
+                    print (f"   Você tem mais {Tentativas} tentativa(s)   ")
+                    print()
+                    
+        if Tenta_ou_Compra == '3':
+
+            certeza=input('      Tem certeza que deseja desistir?   (s/n)   ')
+
+            if certeza == 's':
+                print()
+                print(f'     O país correto era :{Pais_escolhido}')
+                print()
+
+                quer_parar=input('     Deseja jogar novamente?   (s/n)  ')
+
+                if quer_parar=='n':
+                    print()
+                    print("     Obrigado por jogar!!     ")
+                    print()
+                    print("        Até a proxima     ")
+                    print()
+                    parar_tudo=True
+                parar=True
+
+        if Tentativas==0:
+
+            print()
+            print("     Suas tentativas se esgotaram     ")
+            print()
+            print(f'   O país correto era :{Pais_escolhido}     ')
+            print()
+            parar=True
+            quer_parar=input('     Deseja jogar novamente?   (s/n)  ')
+
+            if quer_parar=='n':
+                print()
+                print("     Obrigado por jogar!!     ")
+                print()
+                print("        Até a proxima     ")
+                print()
+                parar_tudo=True
