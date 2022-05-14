@@ -1,4 +1,5 @@
 import random
+from termcolor import colored          # Se precisar instalar: "pip install termcolor"
 from Funções import sorteia_pais
 from Funções import normaliza
 from Funções import haversine
@@ -17,12 +18,12 @@ parar_tudo=False
 while not parar_tudo:
 
     print()
-    print('|=================================|')
-    print('| Bem vindo(a) ao Jogo dos países |')
-    print('|                                 |')
-    print('|  Seu objetivo vai ser acertar   |')
-    print('| um país sortesado pelo sistema  |')
-    print('|=================================|')
+    print(colored('|=================================|', 'cyan'))
+    print(colored('| Bem vindo(a) ao Jogo dos países |', 'cyan'))
+    print(colored('|                                 |', 'cyan'))
+    print(colored('|  Seu objetivo vai ser acertar   |', 'cyan'))
+    print(colored('| um país sortesado pelo sistema  |', 'cyan'))
+    print(colored('|=================================|', 'cyan'))
 
     Pais_escolhido= sorteia_pais(Dados_normalizados)
     lista=[]
