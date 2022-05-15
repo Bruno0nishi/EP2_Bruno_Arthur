@@ -234,3 +234,5 @@ while not parar_tudo:
                 print("        Até a proxima     ")
                 print()
                 parar_tudo=True
+
+
